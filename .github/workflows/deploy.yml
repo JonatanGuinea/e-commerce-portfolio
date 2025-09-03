@@ -2,7 +2,7 @@ name: Deploy Vite site to GitHub Pages
 
 on:
   push:
-    branches: [ master ] # 👈 se ejecuta cada push a master
+    branches: [ master ] 
 
 jobs:
   build-deploy:
@@ -28,3 +28,5 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
+
+          
