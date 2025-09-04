@@ -1,32 +1,31 @@
-name: Deploy Vite site to GitHub Pages
+name: Deploy to Hostinger
 
 on:
   push:
-    branches: [ master ] 
+    branches:
+      - master  # o main según tu repo
 
 jobs:
-  build-deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
+    - name: Checkout repository
+      uses: actions/checkout@v3
 
-      - name: Set up Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
+    - name: Build project (opcional)
+      run: |
+        if [ -f package.json ]; then
+          npm install
+          npm run build
+        fi
 
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build project
-        run: npm run build
-
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
-
-          
+    - name: Deploy via FTP
+      uses: SamKirkland/FTP-Deploy-Action@4.3.0
+      with:
+        server: ${{ secrets.HOSTINGER_HOST }}
+        username: ${{ secrets.HOSTINGER_USERNAME }}
+        password: ${{ secrets.HOSTINGER_PASSWORD }}
+        local-dir: ./build  # Cambialo a ./ si es HTML/CSS puro
+        server-dir: ${{ secrets.HOSTINGER_PATH }}
+        protocol: ftp
