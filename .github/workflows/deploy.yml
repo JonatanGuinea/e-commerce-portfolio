@@ -26,6 +26,6 @@ jobs:
         server: ${{ secrets.HOSTINGER_HOST }}
         username: ${{ secrets.HOSTINGER_USERNAME }}
         password: ${{ secrets.HOSTINGER_PASSWORD }}
-        local-dir: ./  # Cambialo a ./ si es HTML/CSS puro
-        server-dir: ${{ secrets.HOSTINGER_PATH }}/
+        local-dir: dist/              # 👈 carpeta con los archivos finales
+        server-dir: public_html/
         protocol: ftp
