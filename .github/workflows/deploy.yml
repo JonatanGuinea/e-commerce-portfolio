@@ -29,3 +29,5 @@ jobs:
         local-dir: ./build  # Cambialo a ./ si es HTML/CSS puro
         server-dir: ${{ secrets.HOSTINGER_PATH }}
         protocol: ftp
+
+        
