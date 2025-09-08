@@ -1,17 +1,24 @@
 name: Test FTP Connection
 
 on:
-  workflow_dispatch:   # 👈 lo ejecutás a mano desde GitHub Actions
+  workflow_dispatch:
 
 jobs:
   test-ftp:
     runs-on: ubuntu-latest
     steps:
-      - name: Try FTP connection
+      - name: Install lftp
         run: |
           sudo apt-get update
           sudo apt-get install -y lftp
-          echo "open -u ${{ secrets.HOSTINGER_USERNAME }},${{ secrets.HOSTINGER_PASSWORD }} ${{ secrets.HOSTINGER_HOST }}" > test.ftp
+      - name: Try FTP/FTPS connection
+        run: |
+          echo "open -u ${{ secrets.HOSTINGER_USERNAME }},${{ secrets.HOSTINGER_PASSWORD }} ${{
+            secrets.HOSTINGER_HOST
+          }}" > test.ftp
+          # Para FTP plano (menos seguro):
+          # echo "set ftp:ssl-allow no" >> test.ftp
           echo "ls" >> test.ftp
           echo "bye" >> test.ftp
           lftp -f test.ftp
+
