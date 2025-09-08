@@ -3,7 +3,7 @@ name: Deploy to Hostinger
 on:
   push:
     branches:
-      - master   # o main, según tu repo
+      - master   # o main según tu repo
 
 jobs:
   build-and-deploy:
@@ -31,5 +31,5 @@ jobs:
           username: ${{ secrets.HOSTINGER_USERNAME }}
           password: ${{ secrets.HOSTINGER_PASSWORD }}
           local-dir: dist/
-          server-dir: public_html/
+          server-dir: public_html/   # 👈 Ajustá si querés deploy en subcarpeta
 
